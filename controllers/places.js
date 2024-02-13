@@ -138,7 +138,15 @@ router.post('/:id/rant', (req, res) => {
 
 
 router.delete('/:id/rant/:rantId', (req, res) => {
-  res.send('GET /places/:id/rant/:rantId stub')
+  db.Comment.findByIdAndDelete(req.params.commentId)
+  .then(() => {
+      console.log('Success')
+      res.redirect(`/places/${req.params.id}`)
+  })
+  .catch(err => {
+      console.log('err', err)
+      res.render('error404')
+  })
 })
 
 
